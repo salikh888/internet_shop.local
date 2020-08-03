@@ -25,7 +25,10 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 
 app.get('/', (req: express.Request, res: express.Response) => {
-    res.render('main');
+    res.render('main',{
+        foo: 4,
+        bar:8
+    });
 });
 
 app.listen(3000,()=>{

@@ -1,7 +1,7 @@
 {
   "verbose" : true,
-  "watch": ["src" ],
-  "ext": "js",
+  "watch": ["src"],
+  "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
-  "exec": "tsc && node build/index.js"
+  "exec": "tsc && node build/app.js"
 }

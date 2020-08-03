@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "nodemon && tsc && node build/index.js",
+    "start": "tsc && node build/app.js",
     "watch": "nodemon"
   },
   "repository": {
