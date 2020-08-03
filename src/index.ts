@@ -21,8 +21,11 @@ import express = require('express');
 const app = express();
 app.use(express.static('public'));
 
+//подключаем и указываем шаблонизатор
+app.set('view engine', 'pug');
+
 app.get('/', (req: express.Request, res: express.Response) => {
-    res.render('index.html');
+    res.render('main');
 });
 
 app.listen(3000,()=>{
