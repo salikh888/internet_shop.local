@@ -3,3 +3,11 @@ include header
 h2 My app
 p #{foo}
 h3 #{bar}
+each val, index in goods
+    p Продукт: #{val['name']}
+    img(
+        src='images/'+val['image']
+        class='test'
+    )
+    p Описание: #{val['description']}
+    p Цена: #{val['cost']} руб.

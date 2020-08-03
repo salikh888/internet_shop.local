@@ -19,7 +19,6 @@ http.createServer((req, res)=>{
 import express = require('express');
 import mysql = require('mysql');
 
-
 const app = express();
 app.use(express.static('public'));
 
@@ -38,22 +37,21 @@ app.get('/', (req: express.Request, res: express.Response) => {
         'SELECT * FROM goods',
         (error, result)=>{
             if (error) throw error;
-            // console.log(result);
-            //todo
-            //Разобраться
 
             let goods:any = {};
-            for (let i = 0; i < result.lenght; i++){
+            for (let i = 0; i < result.length; i++){
                 goods[result[i]['id']] = result[i];
-                console.log(goods);
             }
-            console.log(goods);
+
+            console.log(JSON.parse(JSON.stringify(goods)));
+            res.render('main',{
+                foo: 4,
+                bar:7,
+                goods: JSON.parse(JSON.stringify(goods))
+            });
         }
     );
-    res.render('main',{
-        foo: 4,
-        bar:7
-    });
+
 });
 
 app.listen(3000,()=>{
