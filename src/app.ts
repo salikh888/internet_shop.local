@@ -17,17 +17,42 @@ http.createServer((req, res)=>{
 }).listen(3000);
  */
 import express = require('express');
+import mysql = require('mysql');
+
 
 const app = express();
 app.use(express.static('public'));
 
+const con = mysql.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '123456789',
+    database: 'shop'
+});
 //подключаем и указываем шаблонизатор
 app.set('view engine', 'pug');
+// let goods:[number, string, string, number, string, number];
 
 app.get('/', (req: express.Request, res: express.Response) => {
+    con.query(
+        'SELECT * FROM goods',
+        (error, result)=>{
+            if (error) throw error;
+            // console.log(result);
+            //todo
+            //Разобраться
+
+            let goods:any = {};
+            for (let i = 0; i < result.lenght; i++){
+                goods[result[i]['id']] = result[i];
+                console.log(goods);
+            }
+            console.log(goods);
+        }
+    );
     res.render('main',{
         foo: 4,
-        bar:8
+        bar:7
     });
 });
 
