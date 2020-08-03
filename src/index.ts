@@ -1,5 +1,5 @@
+/*
 import * as http from "http";
-
 
 // http.createServer().listen(3000);
 http.createServer((req, res)=>{
@@ -15,3 +15,16 @@ http.createServer((req, res)=>{
     }
 
 }).listen(3000);
+ */
+import express = require('express');
+
+const app = express();
+app.use(express.static('public'));
+
+app.get('/', (req: express.Request, res: express.Response) => {
+    res.render('index.html');
+});
+
+app.listen(3000,()=>{
+    console.log('Listen port 3000');
+});
