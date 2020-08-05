@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
+    "mustard-ui": "^1.0.4",
     "mysql": "^2.18.1",
     "node": "^14.5.0",
     "pug": "^3.0.0"

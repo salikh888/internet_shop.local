@@ -18,6 +18,8 @@ http.createServer((req, res)=>{
  */
 import express = require('express');
 import mysql = require('mysql');
+import {resolve} from "dns";
+
 
 const app = express();
 app.use(express.static('public'));
@@ -43,7 +45,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
                 goods[result[i]['id']] = result[i];
             }
 
-            console.log(JSON.parse(JSON.stringify(goods)));
+            //console.log(JSON.parse(JSON.stringify(goods)));
             res.render('main',{
                 foo: 4,
                 bar:7,
@@ -53,6 +55,41 @@ app.get('/', (req: express.Request, res: express.Response) => {
     );
 
 });
+
+app.get('/cat', (req: express.Request, res: express.Response) => {
+    //console.log(req.query.id);
+    let catId = req.query.id;
+    //res.render('cat',{});
+
+    let cat = new Promise((resolve, reject)=>{
+        con.query(
+            'SELECT * FROM category WHERE id='+catId,
+            (error, result)=>{
+                if (error) reject(error);
+                resolve(result);
+                //console.log(JSON.parse(JSON.stringify(result)));
+            });
+    });
+    let goods = new Promise((resolve, reject)=>{
+        con.query(
+            'SELECT * FROM goods WHERE category='+catId,
+            (error, result)=>{
+                if (error) reject(error);
+                resolve(result);
+                //console.log(JSON.parse(JSON.stringify(result)));
+            });
+    });
+    Promise.all([cat, goods]).then((value)=>{
+        console.log(value);
+        res.render('cat',{
+            cat: JSON.parse(JSON.stringify(value[0])),
+            goods: JSON.parse(JSON.stringify(value[1]))
+        })
+    })
+
+});
+
+
 
 app.listen(3000,()=>{
     console.log('Listen port 3000');
