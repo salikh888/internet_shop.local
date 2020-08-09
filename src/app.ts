@@ -18,7 +18,7 @@ http.createServer((req, res)=>{
  */
 import express = require('express');
 import mysql = require('mysql');
-import {resolve} from "dns";
+
 
 
 const app = express();
@@ -89,7 +89,12 @@ app.get('/cat', (req: express.Request, res: express.Response) => {
 
 });
 
-
+app.get('/goods', (req: express.Request, res: express.Response) => {
+    con.query('SELECT * FROM goods WHERE id='+req.query.id, (error, result, fields)=>{
+        if (error) throw error;
+        res.render('goods',{goods:JSON.parse(JSON.stringify(result))});
+    });
+});
 
 app.listen(3000,()=>{
     console.log('Listen port 3000');

@@ -1,6 +1,6 @@
 {
   "verbose" : true,
-  "watch": ["src", "public", "views"],
+  "watch": ["src", "public/**/*", "views"],
   "ext": "ts",
   "ignore": ["src/**/*.spec.ts"],
   "exec": "tsc && node build/app.js"
